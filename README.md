@@ -7,6 +7,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 - useState
 - useForm (Custom Hook)
 - useEffect
+- useFetch (Custom Hook)
 
 ## Available Scripts
 
