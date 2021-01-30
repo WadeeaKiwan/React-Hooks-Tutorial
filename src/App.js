@@ -19,9 +19,16 @@ const App = () => {
   //   };
   // }, []);
 
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(
+    // Use the initializer function of useState to reduce from running at every single render
+    () => JSON.parse(localStorage.getItem("count")) || 0
+  );
 
   const { data, loading } = useFetch(`http://numbersapi.com/${count}/trivia`);
+
+  useEffect(() => {
+    localStorage.setItem("count", JSON.stringify(count));
+  });
 
   return (
     <>
