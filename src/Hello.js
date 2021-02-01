@@ -1,6 +1,11 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 export const Hello = () => {
+  // We can use useRef to store any value
+  const renders = useRef(0);
+
+  console.log("Hello renders: ", renders.current++);
+
   useEffect(() => {
     console.log("render");
 

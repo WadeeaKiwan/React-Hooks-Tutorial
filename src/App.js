@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useForm } from "./useForm";
 import { Hello } from "./Hello";
 import { useFetch } from "./useFetch";
@@ -7,6 +7,8 @@ const App = () => {
   const [values, handleChange] = useForm({ email: "", password: "" });
 
   const [showHello, setShowHello] = useState(true);
+
+  const inputRef = useRef();
 
   // useEffect(() => {
   //   const onMouseMove = (e) => {
@@ -28,7 +30,7 @@ const App = () => {
 
   useEffect(() => {
     localStorage.setItem("count", JSON.stringify(count));
-  });
+  }, [count]);
 
   return (
     <>
@@ -39,7 +41,13 @@ const App = () => {
       <button onClick={() => setShowHello(!showHello)}>Toggle</button>
       {showHello && <Hello />}
       <div>
-        <input name='email' placeholder='Email' value={values.email} onChange={handleChange} />
+        <input
+          ref={inputRef}
+          name='email'
+          placeholder='Email'
+          value={values.email}
+          onChange={handleChange}
+        />
         <input
           type='password'
           name='password'
@@ -48,6 +56,14 @@ const App = () => {
           onChange={handleChange}
         />
       </div>
+      <button
+        onClick={() => {
+          console.log(inputRef.current);
+          inputRef.current.focus();
+        }}
+      >
+        Focus Ref
+      </button>
     </>
   );
 };
