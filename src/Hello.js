@@ -1,6 +1,23 @@
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useFetch } from "./useFetch";
 
 export const Hello = () => {
+  // We can use useRef to store any value
+  const renders = useRef(0);
+
+  console.log("Hello renders: ", renders.current++);
+
+  const [count, setCount] = useState(
+    // Use the initializer function of useState to reduce from running at every single render
+    () => JSON.parse(localStorage.getItem("count")) || 0
+  );
+
+  const { data, loading } = useFetch(`http://numbersapi.com/${count}/trivia`);
+
+  useEffect(() => {
+    localStorage.setItem("count", JSON.stringify(count));
+  }, [count]);
+
   useEffect(() => {
     console.log("render");
 
@@ -10,5 +27,12 @@ export const Hello = () => {
     };
   }, []);
 
-  return <div>Hello</div>;
+  return (
+    <div>
+      <button onClick={() => setCount((c) => c + 1)}>Count +</button>
+      <button onClick={() => setCount((c) => (c >= 1 ? c - 1 : c))}>Count -</button>
+      <div>Count: {count}</div>
+      <div>{!data ? "Loading..." : data}</div>
+    </div>
+  );
 };
