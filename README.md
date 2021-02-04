@@ -8,6 +8,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 - useForm (Custom Hook)
 - useEffect
 - useFetch (Custom Hook)
+- useLayoutEffect
 
 ## Available Scripts
 
