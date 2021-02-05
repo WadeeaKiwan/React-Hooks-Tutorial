@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import { useForm } from "./useForm";
 import { Hello } from "./Hello";
 
@@ -9,6 +9,11 @@ const App = () => {
 
   const inputRef = useRef();
   const hello = useRef(() => console.log("hello"));
+
+  // Use it to know the measurements of a DOM node before rendering the data
+  useLayoutEffect(() => {
+    console.log(inputRef.current.getBoundingClientRect());
+  }, []);
 
   // useEffect(() => {
   //   const onMouseMove = (e) => {
