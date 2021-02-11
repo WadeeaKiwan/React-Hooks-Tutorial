@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useFetch } from "./useFetch";
+import { useMeasure } from "./useMeasure";
 
 export const Hello = () => {
   // We can use useRef to store any value
@@ -27,12 +28,17 @@ export const Hello = () => {
     };
   }, []);
 
+  const [rect, divRef] = useMeasure([data]);
+
   return (
     <div>
       <button onClick={() => setCount((c) => c + 1)}>Count +</button>
       <button onClick={() => setCount((c) => (c >= 1 ? c - 1 : c))}>Count -</button>
       <div>Count: {count}</div>
-      <div>{!data ? "Loading..." : data}</div>
+      <div style={{ display: "flex" }}>
+        <div ref={divRef}>{!data ? "Loading..." : data}</div>
+      </div>
+      <pre>{JSON.stringify(rect, null, 2)}</pre>
     </div>
   );
 };

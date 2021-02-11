@@ -1,6 +1,7 @@
-import { useRef, useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import { useForm } from "./useForm";
 import { Hello } from "./Hello";
+import { useMeasure } from "./useMeasure";
 
 const App = () => {
   const [values, handleChange] = useForm({ email: "", password: "" });
@@ -9,6 +10,11 @@ const App = () => {
 
   const inputRef = useRef();
   const hello = useRef(() => console.log("hello"));
+
+  // Use it to know the measurements of a DOM node before rendering the data
+  useLayoutEffect(() => {
+    console.log(inputRef.current.getBoundingClientRect());
+  }, []);
 
   // useEffect(() => {
   //   const onMouseMove = (e) => {
@@ -20,6 +26,8 @@ const App = () => {
   //     window.removeEventListener("mousemove", onMouseMove);
   //   };
   // }, []);
+
+  const [rect, inputRef2] = useMeasure([]);
 
   return (
     <>
@@ -34,6 +42,7 @@ const App = () => {
           onChange={handleChange}
         />
         <input
+          ref={inputRef2}
           type='password'
           name='password'
           placeholder='Password'
@@ -41,6 +50,7 @@ const App = () => {
           onChange={handleChange}
         />
       </div>
+      <pre>{JSON.stringify(rect, null, 2)}</pre>
       <button
         onClick={() => {
           console.log(inputRef.current);
