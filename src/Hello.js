@@ -1,5 +1,6 @@
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useFetch } from "./useFetch";
+import { useMeasure } from "./useMeasure";
 
 export const Hello = () => {
   // We can use useRef to store any value
@@ -27,13 +28,9 @@ export const Hello = () => {
     };
   }, []);
 
-  const [rect, setRect] = useState({});
   const divRef = useRef();
 
-  useLayoutEffect(() => {
-    console.log(divRef.current.getBoundingClientRect());
-    setRect(divRef.current.getBoundingClientRect());
-  }, [data]);
+  const rect = useMeasure(divRef, [data]);
 
   return (
     <div>
