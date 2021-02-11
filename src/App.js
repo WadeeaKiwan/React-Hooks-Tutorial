@@ -1,6 +1,7 @@
 import { useLayoutEffect, useRef, useState } from "react";
 import { useForm } from "./useForm";
 import { Hello } from "./Hello";
+import { useMeasure } from "./useMeasure";
 
 const App = () => {
   const [values, handleChange] = useForm({ email: "", password: "" });
@@ -26,6 +27,8 @@ const App = () => {
   //   };
   // }, []);
 
+  const [rect, inputRef2] = useMeasure([]);
+
   return (
     <>
       <button onClick={() => setShowHello(!showHello)}>Toggle</button>
@@ -39,6 +42,7 @@ const App = () => {
           onChange={handleChange}
         />
         <input
+          ref={inputRef2}
           type='password'
           name='password'
           placeholder='Password'
@@ -46,6 +50,7 @@ const App = () => {
           onChange={handleChange}
         />
       </div>
+      <pre>{JSON.stringify(rect, null, 2)}</pre>
       <button
         onClick={() => {
           console.log(inputRef.current);

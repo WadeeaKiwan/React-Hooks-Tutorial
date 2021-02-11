@@ -1,13 +1,14 @@
-import { useState, useLayoutEffect } from "react";
+import { useState, useRef, useLayoutEffect } from "react";
 
-export const useMeasure = (ref, deps) => {
+export const useMeasure = (deps) => {
   const [rect, setRect] = useState({});
+  const myRef = useRef();
 
   useLayoutEffect(() => {
-    console.log(ref.current.getBoundingClientRect());
-    setRect(ref.current.getBoundingClientRect());
+    console.log(myRef.current.getBoundingClientRect());
+    setRect(myRef.current.getBoundingClientRect());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, deps);
 
-  return rect;
+  return [rect, myRef];
 };
