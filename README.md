@@ -6,3 +6,5 @@
 - useFetch (Custom Hook)
 - useLayoutEffect
 - useCallback
+- useMemo
+- useContext
