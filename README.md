@@ -1,5 +1,6 @@
 # React Hooks Tutorial:
 
+This repo is for refreshing the knowlegde about `React Hooks`.
 - useState
 - useForm (Custom Hook)
 - useEffect
