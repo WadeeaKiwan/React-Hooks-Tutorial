@@ -3,6 +3,7 @@ import { useForm } from "./useForm";
 import { Hello } from "./Hello";
 import { useMeasure } from "./useMeasure";
 import HelloCallback from "./HelloCallback";
+import Square from "./Square";
 
 const App = () => {
   const [count, setCount] = useState(0);
@@ -22,6 +23,8 @@ const App = () => {
   // useEffect(() => {
   //  to prevent increment from causing firing off for useEffect at every render
   // }, [increment]);
+
+  const favoriteNums = [7, 21, 37];
 
   const [values, handleChange] = useForm({ email: "", password: "" });
 
@@ -83,6 +86,9 @@ const App = () => {
         {/* The function is created on every single render */}
         <HelloCallback increment={increment} />
         <div>Count: {count}</div>
+        {favoriteNums.map((n) => {
+          return <Square onClick={() => increment(n)} n={n} key={n} />;
+        })}
       </div>
     </>
   );
