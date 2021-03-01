@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef, useState } from "react";
+import { useLayoutEffect, useRef, useState, useCallback } from "react";
 import { useForm } from "./useForm";
 import { Hello } from "./Hello";
 import { useMeasure } from "./useMeasure";
@@ -6,6 +6,10 @@ import HelloCallback from "./HelloCallback";
 
 const App = () => {
   const [count, setCount] = useState(0);
+  // useCallback will rerender the the callback function whenever a dependency has been changed
+  const increment = useCallback(() => {
+    setCount(count + 1);
+  }, [count, setCount]);
 
   const [values, handleChange] = useForm({ email: "", password: "" });
 
@@ -65,7 +69,7 @@ const App = () => {
       </button>
       <div>
         {/* The function is created on every single render */}
-        <HelloCallback increment={() => setCount(count + 1)} />
+        <HelloCallback increment={increment} />
         <div>Count: {count}</div>
       </div>
     </>
