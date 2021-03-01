@@ -2,8 +2,11 @@ import { useLayoutEffect, useRef, useState } from "react";
 import { useForm } from "./useForm";
 import { Hello } from "./Hello";
 import { useMeasure } from "./useMeasure";
+import HelloCallback from "./HelloCallback";
 
 const App = () => {
+  const [count, setCount] = useState(0);
+
   const [values, handleChange] = useForm({ email: "", password: "" });
 
   const [showHello, setShowHello] = useState(true);
@@ -60,6 +63,11 @@ const App = () => {
       >
         Focus Ref
       </button>
+      <div>
+        {/* The function is created on every single render */}
+        <HelloCallback increment={() => setCount(count + 1)} />
+        <div>Count: {count}</div>
+      </div>
     </>
   );
 };
