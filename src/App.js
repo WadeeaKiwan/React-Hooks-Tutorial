@@ -1,9 +1,31 @@
-import { useLayoutEffect, useRef, useState } from "react";
+import { useLayoutEffect, useRef, useState, useCallback } from "react";
 import { useForm } from "./useForm";
 import { Hello } from "./Hello";
 import { useMeasure } from "./useMeasure";
+import HelloCallback from "./HelloCallback";
+import Square from "./Square";
 
 const App = () => {
+  const [count, setCount] = useState(0);
+  // useCallback will rerender the the callback function whenever a dependency has been changed
+  const increment = useCallback(
+    (n) => {
+      // Eliminate count dependency by using the updater function which solves the problem and prevent the increment function from being created at every render by wrapping it with useCallback
+      setCount((c) => c + n);
+
+      // We can also return a value in useCallback
+      // return 5;
+    },
+    [setCount]
+  );
+
+  // Another use case of using useCallback:
+  // useEffect(() => {
+  //  to prevent increment from causing firing off for useEffect at every render
+  // }, [increment]);
+
+  const favoriteNums = [7, 21, 37];
+
   const [values, handleChange] = useForm({ email: "", password: "" });
 
   const [showHello, setShowHello] = useState(true);
@@ -60,6 +82,15 @@ const App = () => {
       >
         Focus Ref
       </button>
+      <div>
+        {/* The function is created on every single render */}
+        <HelloCallback increment={increment} />
+        <div>Count: {count}</div>
+        {favoriteNums.map((n) => {
+          // pass increment down and use it inside the Square component to prevent component rerendering
+          return <Square increment={increment} n={n} key={n} />;
+        })}
+      </div>
     </>
   );
 };
