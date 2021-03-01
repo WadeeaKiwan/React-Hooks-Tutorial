@@ -8,8 +8,9 @@ const App = () => {
   const [count, setCount] = useState(0);
   // useCallback will rerender the the callback function whenever a dependency has been changed
   const increment = useCallback(() => {
-    setCount(count + 1);
-  }, [count, setCount]);
+    // Eliminate count dependency by using the updater function which solves the problem and prevent the increment function from being created at every render by wrapping it with useCallback
+    setCount((c) => c + 1);
+  }, [setCount]);
 
   const [values, handleChange] = useForm({ email: "", password: "" });
 
