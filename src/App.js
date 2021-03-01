@@ -7,10 +7,21 @@ import HelloCallback from "./HelloCallback";
 const App = () => {
   const [count, setCount] = useState(0);
   // useCallback will rerender the the callback function whenever a dependency has been changed
-  const increment = useCallback(() => {
-    // Eliminate count dependency by using the updater function which solves the problem and prevent the increment function from being created at every render by wrapping it with useCallback
-    setCount((c) => c + 1);
-  }, [setCount]);
+  const increment = useCallback(
+    (n) => {
+      // Eliminate count dependency by using the updater function which solves the problem and prevent the increment function from being created at every render by wrapping it with useCallback
+      setCount((c) => c + n);
+
+      // We can also return a value in useCallback
+      // return 5;
+    },
+    [setCount]
+  );
+
+  // Another use case of using useCallback:
+  // useEffect(() => {
+  //  to prevent increment from causing firing off for useEffect at every render
+  // }, [increment]);
 
   const [values, handleChange] = useForm({ email: "", password: "" });
 

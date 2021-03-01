@@ -5,7 +5,8 @@ import { useCountRenders } from "./useCountRenders";
 const HelloCallback = memo(({ increment }) => {
   useCountRenders();
 
-  return <button onClick={increment}>Hello Callback</button>;
+  // Use the parameter to pass the value to useCallback function
+  return <button onClick={() => increment(5)}>Hello Callback</button>;
 });
 
 export default HelloCallback;
