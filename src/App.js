@@ -87,7 +87,8 @@ const App = () => {
         <HelloCallback increment={increment} />
         <div>Count: {count}</div>
         {favoriteNums.map((n) => {
-          return <Square onClick={() => increment(n)} n={n} key={n} />;
+          // pass increment down and use it inside the Square component to prevent component rerendering
+          return <Square increment={increment} n={n} key={n} />;
         })}
       </div>
     </>

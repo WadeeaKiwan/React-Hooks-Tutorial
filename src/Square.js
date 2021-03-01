@@ -1,10 +1,10 @@
 import { memo } from "react";
 import { useCountRenders } from "./useCountRenders";
 
-const Square = memo(({ n, onClick }) => {
+const Square = memo(({ n, increment }) => {
   useCountRenders();
 
-  return <button onClick={onClick}>{n}</button>;
+  return <button onClick={() => increment(n)}>{n}</button>;
 });
 
 export default Square;
